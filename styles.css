@@ -63,15 +63,62 @@ button { font: inherit; }
 }
 .cursor-glow {
   position: fixed;
-  z-index: 1;
-  width: 440px;
-  height: 440px;
+  z-index: 101;
+  top: 0;
+  left: 0;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(183, 255, 90, .62);
   border-radius: 50%;
   opacity: 0;
   pointer-events: none;
-  background: radial-gradient(circle, rgba(183, 255, 90, .08), transparent 68%);
+  background: radial-gradient(circle, rgba(183, 255, 90, .11) 0, rgba(183, 255, 90, .035) 42%, transparent 70%);
+  box-shadow:
+    0 0 0 1px rgba(7, 9, 11, .28),
+    inset 0 0 0 1px rgba(255, 255, 255, .08),
+    0 8px 26px rgba(183, 255, 90, .1);
   transform: translate(-50%, -50%);
-  transition: opacity .25s ease;
+  transition:
+    width .22s cubic-bezier(.2, .8, .2, 1),
+    height .22s cubic-bezier(.2, .8, .2, 1),
+    border-color .2s ease,
+    background .2s ease,
+    box-shadow .2s ease,
+    opacity .18s ease;
+  will-change: transform, opacity;
+}
+.cursor-glow::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #b7ff5a;
+  box-shadow: 0 0 8px rgba(183, 255, 90, .65);
+  content: "";
+  transform: translate(-50%, -50%);
+}
+.cursor-glow::after {
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: inherit;
+  content: "";
+}
+.cursor-glow.is-interactive {
+  width: 56px;
+  height: 56px;
+  border-color: rgba(183, 255, 90, .9);
+  background: radial-gradient(circle, rgba(183, 255, 90, .16), rgba(183, 255, 90, .035) 48%, transparent 72%);
+  box-shadow:
+    0 0 0 1px rgba(7, 9, 11, .32),
+    inset 0 0 0 1px rgba(255, 255, 255, .1),
+    0 10px 34px rgba(183, 255, 90, .15);
+}
+.cursor-glow.is-pressed {
+  width: 30px;
+  height: 30px;
 }
 
 .container {
@@ -276,7 +323,7 @@ button { font: inherit; }
   border-radius: 150px 22px 150px 22px;
   background: #d7d5ce;
   box-shadow: 0 45px 100px rgba(0, 0, 0, .38);
-  transform: rotate(2deg);
+  transform: none;
   transform-origin: center;
 }
 .portrait-frame::before {
@@ -701,6 +748,7 @@ button { font: inherit; }
 }
 
 @media (max-width: 680px) {
+  .cursor-glow { display: none; }
   .container { width: min(var(--max), calc(100% - 30px)); }
   .site-header { height: 58px; }
   .brand-copy { display: none; }

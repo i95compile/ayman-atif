@@ -63,13 +63,35 @@ if (!prefersReducedMotion) {
     });
   }, { passive: true });
 
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  if (glow && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const interactiveSelector = 'a, button, input, textarea, select, [role="button"]';
+    const moveX = window.gsap?.quickTo(glow, 'x', { duration: .28, ease: 'power3.out' });
+    const moveY = window.gsap?.quickTo(glow, 'y', { duration: .28, ease: 'power3.out' });
+
+    if (window.gsap) window.gsap.set(glow, { xPercent: -50, yPercent: -50 });
+
     window.addEventListener('pointermove', (event) => {
-      if (!glow) return;
       glow.style.opacity = '1';
-      glow.style.left = `${event.clientX}px`;
-      glow.style.top = `${event.clientY}px`;
+      if (moveX && moveY) {
+        moveX(event.clientX);
+        moveY(event.clientY);
+      } else {
+        glow.style.left = `${event.clientX}px`;
+        glow.style.top = `${event.clientY}px`;
+      }
     }, { passive: true });
+
+    document.addEventListener('pointerover', (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      glow.classList.toggle('is-interactive', Boolean(target?.closest(interactiveSelector)));
+    }, { passive: true });
+
+    window.addEventListener('pointerout', (event) => {
+      if (!event.relatedTarget) glow.style.opacity = '0';
+    }, { passive: true });
+
+    window.addEventListener('pointerdown', () => glow.classList.add('is-pressed'), { passive: true });
+    window.addEventListener('pointerup', () => glow.classList.remove('is-pressed'), { passive: true });
   }
 }
 
@@ -97,7 +119,7 @@ function initMotion() {
 
   gsap.to('.portrait-frame', {
     y: -54,
-    rotate: -1,
+    rotate: -3.25,
     scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.1 }
   });
   gsap.to('.portrait-orbit', {
