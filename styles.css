@@ -582,7 +582,7 @@ button { font: inherit; }
   opacity: 1;
   transition: opacity .3s ease;
 }
-.js .process-step { opacity: .45; }
+.js .process-step { opacity: .7; }
 .process-step.is-active { opacity: 1; }
 .process-step > span { padding-top: 6px; color: #96928c; font-size: 9px; }
 .process-step h3 { margin: 0 0 13px; font: 600 clamp(27px, 2.8vw, 38px)/1.1 Manrope, sans-serif; letter-spacing: -.04em; }
