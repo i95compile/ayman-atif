@@ -204,7 +204,7 @@
 
         <p><strong>Student answer:</strong> &ldquo;Caching stores frequently accessed data in memory to reduce database load and improve response times. You can use in-memory caching or distributed caching like Redis.&rdquo;</p>
 
-        <p><strong>Engineer answer:</strong> &ldquo;Caching is easy to add and genuinely dangerous to get wrong, because the failure mode is silent &mdash; stale data that looks correct. The real question is always invalidation, not storage. I&rsquo;ve seen teams cache aggressively for performance and then spend weeks chasing a bug where users saw outdated data after an update, because nobody had a clear invalidation strategy. My default is: cache read-heavy, rarely-changing data first, be explicit about TTLs, and treat cache invalidation as a design decision made before you add the cache, not a patch applied after something breaks.&rdquo;</p>
+        <p><strong>Engineer answer:</strong> &ldquo;Caching is easy to add and surprisingly tricky to get right, because the failure mode is silent &mdash; stale data that looks correct. The real question is always invalidation, not storage. I&rsquo;ve seen teams cache aggressively for performance and then spend weeks chasing a bug where users saw outdated data after an update, because nobody had a clear invalidation strategy. My default is: cache read-heavy, rarely-changing data first, be explicit about TTLs, and treat cache invalidation as a design decision made before you add the cache, not a patch applied after something breaks.&rdquo;</p>
 
         <p><a href="../caching-garbage-collection-system-design-interview-answers/index.html">Caching, garbage collection and system design, answered the same way</a>.</p>
 
